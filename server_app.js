@@ -1,25 +1,25 @@
 var http = require('http');
 
-function handleRequest(req, res){
-  res.end("This thing works!" + req.url);
+function handleRequestOne(request, response) {
+  response.end("You're amazing!" + req.url);
 }
 
-var server = http.createServer(handleRequest);
+function handleRequestTwo(request, response) {
+  response.end("You are not amazing." + req.url);
+}
+
+var PORT_ONE = 7000;
+var PORT_TWO = 7500;
 
 console.log(typeof server);
 
-function serverOne() {
-  var PORT = 7000;
-  server.listen(PORT, function(){
-    console.log('You are amazing! The world is a better place with you!');
-  });
-};
-serverOne();
+var serverOne = http.createServer(handleRequestOne);
+var serverTwo = http.createServer(handleRequestTwo);
 
-function serverTwo() {
-  var PORT = 7500;
-  server.listen(PORT, function(){
-    console.log('You are not amazing. You suck.');
-  });
-};
-serverTwo();
+serverOne.listen(PORT_ONE, function(){
+  console.log("You're amazing!");
+});
+
+serverTwo.listen(PORT_TWO, function() {
+  console.log("You are not amazing.");
+});
